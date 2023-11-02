@@ -1,16 +1,13 @@
 import * as fs from 'fs';
-import * as path from 'path';
-import * as helper from '../../services/helpers';
+
+import { aggregateTransactions } from '../../services/helpers';
 import { Transaction } from '../../interfaces/interfaces';
 
 
-const transactionFilePath = path.join(__dirname, '../../../data/transactions.json');
-
-
-export async function getTransactions(_sku: string ): Promise<Transaction[]>{
+export async function getTransactions(_sku: string, _path: string): Promise<Transaction[]>{
 
     return new Promise((resolve, reject) => {
-        fs.readFile(transactionFilePath, 'utf-8', (err, jsonData) => {
+        fs.readFile(_path, 'utf-8', (err, jsonData) => {
             if (err) {
                 reject(err);
                 return;
@@ -41,10 +38,10 @@ export async function getSkuTransactions(_sku: string, _path: string): Promise<{
 
                 const transactions: Transaction[] = JSON.parse(jsonData);
 
-                const aggregatedTransactions = helper.aggregateTransactions(transactions, _sku);               
+                const aggregatedTransactions = aggregateTransactions(transactions, _sku);               
      
                 resolve(aggregatedTransactions);
-                
+
             } catch (error) {
                 reject(error);
             }

@@ -7,6 +7,10 @@ import * as path from 'path';
 
 const STOCK_FILE = "../data/stock.json";
 const TRANSACTION_FILE = "../data/transactions.json"
+const stockFilePath = path.join(__dirname, STOCK_FILE);    
+const transactionFilePath = path.join(__dirname, TRANSACTION_FILE);
+
+
 
 const app: express.Application = express();
 const port: number = 3300;
@@ -18,7 +22,7 @@ app.use(bodyParser.json())
 app.get('/transaction', async (_req, _res) => {
 
     const sku:string = _req.query.sku as string ;
-    const t = await transactionController.getTransactions(sku);
+    const t = await transactionController.getTransactions(sku, transactionFilePath);
     
     _res.send(t);
 
@@ -28,8 +32,6 @@ app.get('/stock-level', async (_req, _res) => {
     const sku:string = _req.query.sku as string ;
 
 
-    const stockFilePath = path.join(__dirname, STOCK_FILE);    
-    const transactionFilePath = path.join(__dirname, TRANSACTION_FILE);
 
     const stock = await stockController.findOneStock(sku, stockFilePath);
     const skuTransactions = await transactionController.getSkuTransactions(sku, transactionFilePath);

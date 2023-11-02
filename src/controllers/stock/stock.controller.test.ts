@@ -13,7 +13,7 @@ describe('Find stock with valid sku', () => {
   });
 
 });
-describe('Stock Invalid SKU', () => {
+describe('Stock with invalid SKU', () => {
   const sku = "NonExistingSKU";
   const stockFilePath = path.join(__dirname, '../../../data/stock.json');
   test('should return 0 stock for non existing sku', async () => {
