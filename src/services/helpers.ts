@@ -11,8 +11,6 @@ export function aggregateTransactions(transactions: Transaction[], sku: string) 
 
   for (const transaction of transactions) {
 
-    if(transaction.sku === sku){
-
       if (transaction.type === "order") {
 
         result.orders += transaction.qty;
@@ -22,30 +20,29 @@ export function aggregateTransactions(transactions: Transaction[], sku: string) 
         result.refunds += transaction.qty;
       }
 
-    }
     
   }
 
   return result;
 }
 
-export async function getSkuTransactions(sku: string): Promise<{ orders: number; refunds: number }>  {
-  return new Promise(async (resolve, reject) => {
+// export async function getSkuTransactions(sku: string): Promise<{ orders: number; refunds: number }>  {
+//   return new Promise(async (resolve, reject) => {
    
-          try {
+//           try {
             
-              const transactions:Transaction[] = await transactionController.getTransactions(sku);
+//               const transactions:Transaction[] = await transactionController.getTransactions(sku);
 
-              const aggregatedTransactions = aggregateTransactions(transactions, sku);
+//               const aggregatedTransactions = aggregateTransactions(transactions, sku);
              
               
-              resolve(aggregatedTransactions);
-          } catch (error) {
-              reject(error);
-          }
+//               resolve(aggregatedTransactions);
+//           } catch (error) {
+//               reject(error);
+//           }
     
-  });
+//   });
 
-}
+// }
 
 

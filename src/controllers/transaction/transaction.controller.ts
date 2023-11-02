@@ -37,8 +37,17 @@ export async function getSkuTransactions(_sku: string, _path: string): Promise<{
             try {
 
                 const transactions: Transaction[] = JSON.parse(jsonData);
-
-                const aggregatedTransactions = aggregateTransactions(transactions, _sku);               
+                const skuTransactions = transactions.filter((st)=>(st.sku === _sku))
+             
+                if(skuTransactions.length === 0){
+                    var e = new Error();
+                    e.name = 'Record Not found';
+                    e.message = 'SKU does not exist in the transactions.json and stock.json'
+                 
+                    reject(e);
+                    return;
+                }
+                const aggregatedTransactions = aggregateTransactions(skuTransactions, _sku);               
      
                 resolve(aggregatedTransactions);
 

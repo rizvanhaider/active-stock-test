@@ -31,16 +31,16 @@ describe('getTransactions()', () => {
 
     });
 
-      test('test stock level function', async () => {
-        const sku= "sku/not/to/consider";
+    //   test('test stock level function', async () => {
+    //     const sku= "sku/not/to/consider";
 
-        const stockLevel = await helper.getSkuTransactions(sku);
-        console.log("##: >", stockLevel);
-        expect(stockLevel).toHaveProperty("orders");
-        expect(stockLevel).toHaveProperty("refunds");
+    //     const stockLevel = await helper.getSkuTransactions(sku);
+    //     console.log("##: >", stockLevel);
+    //     expect(stockLevel).toHaveProperty("orders");
+    //     expect(stockLevel).toHaveProperty("refunds");
 
 
-      });
+    //   });
 
 
 
