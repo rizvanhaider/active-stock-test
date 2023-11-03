@@ -23,3 +23,11 @@ to run the project
 - `build` - transpile TypeScript to es2016,
 - `test` - run tests
 
+## check Stock level
+
+after `npm start` the project following route is exposed which accepts `sku` as parameter.
+
+```
+http://localhost:3000/stock-level?sku=MQO013465/10/41
+
+```

@@ -14,7 +14,7 @@ const transactionFilePath = path.join(__dirname, TRANSACTION_FILE);
 
 
 const app: express.Application = express();
-const port: number = 3300;
+const port: number = 3000;
 
 
 app.use(bodyParser.json())
