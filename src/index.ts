@@ -1,10 +1,10 @@
 
-import * as stockController from './controllers/stock/stock.controller';
-import * as transactionController from './controllers/transaction/transaction.controller';
+import {findOneStock} from './controllers/stock/stock.controller';
+import {getSkuTransactions} from './controllers/transaction/transaction.controller';
 import express from 'express';
 import bodyParser from 'body-parser';
 import * as path from 'path';
-import { stringify } from 'querystring';
+
 
 const STOCK_FILE = "../data/stock.json";
 const TRANSACTION_FILE = "../data/transactions.json"
@@ -20,31 +20,18 @@ const port: number = 3000;
 app.use(bodyParser.json())
 
 
-app.get('/transaction', async (_req, _res) => {
-
-    const sku: string = _req.query.sku as string;
-    const t = await transactionController.getTransactions(sku, transactionFilePath);
-
-    _res.send(t);
-
-})
 app.get('/stock-level', async (_req, _res) => {
 
     const sku: string = _req.query.sku as string;
 
     try {
-        const stock = await stockController.findOneStock(sku, stockFilePath);
-    
-        const skuTransactions = await transactionController.getSkuTransactions(sku, transactionFilePath);
-        console.log("SS", skuTransactions);
-     
+
+        const {stock, isInStock } = await findOneStock(sku, stockFilePath);
+        const skuTransactions = await getSkuTransactions(sku, isInStock, transactionFilePath);
+
 
         const totalOrdered = skuTransactions.orders - skuTransactions.refunds;
         const currentLevel = stock.stock - totalOrdered;
-
-        console.log("stock: ", stock);
-        console.log("transaction:", skuTransactions);
-        console.log("current-level:", currentLevel);
 
         _res.send({ sku: stock.sku, qty: currentLevel });
 

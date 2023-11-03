@@ -8,8 +8,9 @@ describe('Find stock with valid sku', () => {
   test('should check if stock has sku property', async () => {
     
     const stock = await findOneStock(sku,stockFilePath);
-    expect(stock).toHaveProperty("sku");
-    expect(stock).toHaveProperty("stock");
+    expect(stock.stock).toHaveProperty("sku");
+    expect(stock.stock).toHaveProperty("stock");
+    expect(stock.isInStock).toBe(true);
   });
 
 });
@@ -18,7 +19,7 @@ describe('Stock with invalid SKU', () => {
   const stockFilePath = path.join(__dirname, '../../../data/stock.json');
   test('should return 0 stock for non existing sku', async () => {
     const stock = await findOneStock(sku, stockFilePath);
-    expect(stock.stock).toBe(0);
+    expect(stock.isInStock).toBe(false);
   });
 
 });

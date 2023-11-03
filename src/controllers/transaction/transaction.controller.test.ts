@@ -19,7 +19,8 @@ describe('getTransactions()', () => {
 
   test('should throw error if sku not found in transaction', async () => {
     const sku = "sku/not/to/consider";
-    await expect(getSkuTransactions(sku, transactionFilePath)).rejects.toThrow("SKU does not exist in the transactions.json and stock.json");
+    const isInStock = false;
+    await expect(getSkuTransactions(sku, isInStock, transactionFilePath)).rejects.toThrow("SKU does not exist in the transactions.json and stock.json");
 
   });
 

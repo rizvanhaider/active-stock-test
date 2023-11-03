@@ -27,7 +27,7 @@ export async function getTransactions(_sku: string, _path: string): Promise<Tran
 
 }
 
-export async function getSkuTransactions(_sku: string, _path: string): Promise<{ orders: number; refunds: number }>  {
+export async function getSkuTransactions(_sku: string, _isInStock: boolean, _path: string): Promise<{ orders: number; refunds: number }>  {
     return new Promise((resolve, reject) => {
         fs.readFile(_path, 'utf-8', (err, jsonData) => {
             if (err) {
@@ -39,11 +39,10 @@ export async function getSkuTransactions(_sku: string, _path: string): Promise<{
                 const transactions: Transaction[] = JSON.parse(jsonData);
                 const skuTransactions = transactions.filter((st)=>(st.sku === _sku))
              
-                if(skuTransactions.length === 0){
+                if(skuTransactions.length === 0 && !_isInStock){
                     var e = new Error();
                     e.name = 'Record Not found';
-                    e.message = 'SKU does not exist in the transactions.json and stock.json'
-                 
+                    e.message = 'SKU does not exist in the transactions.json and stock.json';
                     reject(e);
                     return;
                 }
