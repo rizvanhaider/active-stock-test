@@ -28,6 +28,6 @@ to run the project
 after `npm start` following route is exposed which accepts `sku` as parameter.
 
 ```
-http://localhost:3000/stock-level?sku=MQO013465/10/41
+http://localhost:3000/stock/MQO013465/10/41
 
 ```
