@@ -1,4 +1,4 @@
-Current Stock level identifier.
+Current Stock Level Identifier.
 =============================
 
 
@@ -45,6 +45,9 @@ Replace `{SKU}` with the actual SKU identifier, e.g., `MQO013465/10/41`.
 The following npm scripts are available for development and testing:
 
 `npm run start` - Starts the server.
+
 `npm run clean` - Clears the Jest cache, removes coverage data, and deletes transpiled files.
+
 `npm run build` - Compiles TypeScript code to ES2016.
+
 `npm run test` - Executes the test suites.
